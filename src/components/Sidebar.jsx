@@ -8,8 +8,9 @@ import logout from '../assets/logout.png';
 const Sidebar = () => {
   return (
     <aside className="sidebar">
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet"></link>
       <nav className="nav-menu">
-        <div className="nav-item active">
+        <div className="nav-item">
           <img src={home} alt="Home Icon" className="icon" />
           <span className="label">Beranda</span>
         </div>
