@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Sidebar.css';
 import home from '../assets/home.png';
 import materi from '../assets/library_books.png';
@@ -8,6 +9,7 @@ import logout from '../assets/logout.png';
 const Sidebar = () => {
   const [isMateriOpen, setIsMateriOpen] = useState(false);
   const [isKuisOpen, setIsKuisOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMateri = () => {
     setIsMateriOpen(!isMateriOpen);
@@ -17,11 +19,27 @@ const Sidebar = () => {
     setIsKuisOpen(!isKuisOpen);
   };
 
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
+  const materiItems = [
+    { label: 'Ejaan', path: '/Ejaan' },
+    { label: 'Tata Kata', path: '/Tata-Kata' },
+    { label: 'Tata Kalimat', path: '/Tata-Kalimat' },
+  ];
+
+  const kuisItems = [
+    { label: 'Ejaan', path: '/Kuis/Ejaan' },
+    { label: 'Tata Kata', path: '/Kuis/Tata-Kata' },
+    { label: 'Tata Kalimat', path: '/Kuis/Tata-Kalimat' },
+  ];
+
   return (
     <aside className="sidebar">
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet"></link>
       <nav className="nav-menu">
-        <div className="nav-item">
+        <div className="nav-item" onClick={() => handleNavigation('/')}>
           <img src={home} alt="Home Icon" className="icon" />
           <span className="label">Beranda</span>
         </div>
@@ -35,9 +53,15 @@ const Sidebar = () => {
           
           {isMateriOpen && (
             <div className="dropdown-menu">
-              <div className="dropdown-item">Ejaan</div>
-              <div className="dropdown-item">Tata Kata</div>
-              <div className="dropdown-item">Tata Kalimat</div>
+              {materiItems.map((item) => (
+                <div
+                  key={item.path}
+                  className="dropdown-item"
+                  onClick={() => handleNavigation(item.path)}
+                >
+                  {item.label}
+                </div>
+              ))}
             </div>
           )}
         </div>
@@ -51,14 +75,20 @@ const Sidebar = () => {
           
           {isKuisOpen && (
             <div className="dropdown-menu">
-              <div className="dropdown-item">Ejaan</div>
-              <div className="dropdown-item">Tata Kata</div>
-              <div className="dropdown-item">Tata Kalimat</div>
+              {kuisItems.map((item) => (
+                <div
+                  key={item.path}
+                  className="dropdown-item"
+                  onClick={() => handleNavigation(item.path)}
+                >
+                  {item.label}
+                </div>
+              ))}
             </div>
           )}
         </div>
       </nav>
-      <div className="logout">
+      <div className="logout" onClick={() => handleNavigation('/')}>
         <img src={logout} alt="Logout Icon" className="icon" />
         <span className="label">Logout</span>
       </div>
