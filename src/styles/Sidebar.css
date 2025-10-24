@@ -1,0 +1,66 @@
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 80px;
+  width: 200px;
+  height: calc(100vh - 80px);
+  background-color: #fff;
+  padding: 20px 0;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 99;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  cursor: pointer;
+  color: #666;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.nav-item.active {
+  color: #2196F3;
+  background-color: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding-left: 16px;
+}
+
+.icon {
+  font-size: 18px;
+}
+
+.label {
+  font-weight: 500;
+}
+
+.logout {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  cursor: pointer;
+  color: #ff6b6b;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.logout:hover {
+  background-color: #ffe0e0;
+}
