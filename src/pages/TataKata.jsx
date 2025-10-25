@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import '../styles/MateriDetail.css';
-import tataKataImg from '../assets/Tata_Kata.png';
+import tataKataImg from '../assets/Tata-Kata-Banner.png';
 
 const MateriDetail = () => {
   const [activeSection, setActiveSection] = useState('pengantar');
@@ -58,7 +58,6 @@ const MateriDetail = () => {
       <main className="materi-content">
         {/* Banner */}
         <div className="materi-banner" style={{ backgroundImage: `url(${tataKataImg})` }}>
-          <h1 className="banner-title">Tata Kata</h1>
         </div>
 
         <div className="materi-container">
