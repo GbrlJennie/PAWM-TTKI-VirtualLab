@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import TataKata from './pages/TataKata'
 import Ejaan from './pages/Ejaan'
 import Login from './pages/Login'
+import Register from './pages/Register'
 import KuisMultipleChoice from './pages/KuisMultipleChoice' 
 import KuisBenarSalah from './pages/KuisBenarSalah'
 
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Login" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
         <Route path="/Ejaan" element={<Ejaan />} />
         <Route path="/Tata-Kata" element={<TataKata />} />
         <Route path="/Tata-Kalimat" element={<TataKata />} />
