@@ -9,9 +9,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/" element={<Home />} />
-        <Route path="/Ejaan" element={<TataKata />} />
+        <Route path="/Ejaan" element={<Ejaan />} />
         <Route path="/Tata-Kata" element={<TataKata />} />
         <Route path="/Tata-Kalimat" element={<TataKata />} />
         <Route path="/Kuis/Ejaan" element={<KuisEjaan />} />
