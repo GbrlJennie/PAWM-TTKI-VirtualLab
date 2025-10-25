@@ -6,7 +6,7 @@ import '../styles/MultipleChoice.css';
 
 import { Check, X } from 'lucide-react';
 
-const KuisEjaan = () => {
+const KuisMultipleChoice = () => {
   // State untuk melacak pertanyaan saat ini (Pertanyaan 5 di desain)
   const [currentQuestion, setCurrentQuestion] = useState(5);
 
@@ -128,4 +128,4 @@ const KuisEjaan = () => {
   );
 };
 
-export default KuisEjaan;
+export default KuisMultipleChoice;
