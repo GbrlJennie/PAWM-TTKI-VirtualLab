@@ -2,18 +2,18 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import TataKata from './pages/TataKata'
-import Login from './pages/Login';
+import Ejaan from './pages/Ejaan'
+import TataKalimat from './pages/TataKalimat'
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
-        <Route path="/Ejaan" element={<TataKata />} />
+        <Route path="/Ejaan" element={<Ejaan />} />
         <Route path="/Tata-Kata" element={<TataKata />} />
-        <Route path="/Tata-Kalimat" element={<TataKata />} />
-        <Route path="/Kuis/:id" element={<TataKata />} />
+        <Route path="/Tata-Kalimat" element={<TataKalimat />} />
+        <Route path="/Kuis/:id" element={<TataKalimat />} />
       </Routes>
     </Router>
   )
