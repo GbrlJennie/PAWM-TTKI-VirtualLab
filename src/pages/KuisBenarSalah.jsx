@@ -26,6 +26,12 @@ const KuisBenarSalah = () => {
     { id: 1, text: 'Pertanyaan 1', status: 'unanswered' },
     { id: 2, text: 'Pertanyaan 2', status: 'unanswered' },
     { id: 3, text: 'Pertanyaan 3', status: 'unanswered' },
+    { id: 4, text: 'Pertanyaan 4', status: 'unanswered' },
+    { id: 5, text: 'Pertanyaan 5', status: 'unanswered' },
+    { id: 6, text: 'Pertanyaan 6', status: 'unanswered' },
+    { id: 7, text: 'Pertanyaan 7', status: 'unanswered' },
+    { id: 8, text: 'Pertanyaan 8', status: 'unanswered' },
+    { id: 9, text: 'Pertanyaan 9', status: 'unanswered' },
     { id: 10, text: 'Pertanyaan 10', status: 'unanswered' },
   ];
 
@@ -83,8 +89,23 @@ const KuisBenarSalah = () => {
 
           <div className="kuis-options-list horizontal">
             {options.map((option) => (
-              <label /* ... (kode label Anda tetap sama) ... */ >
-                 {/* ... (kode input Anda tetap sama) ... */}
+              <label
+                key={option.id}
+                className={`kuis-option-label ${
+                  // Logika diubah dari .includes() menjadi ===
+                  selectedAnswer === option.id ? 'selected' : ''
+                }`}
+              >
+                <input
+                  // --- PERUBAHAN KUNCI 5 ---
+                  type="radio" // UBAH KE RADIO
+                  name="kuis-benar-salah" // BERI NAMA AGAR SALING TERIKAT
+                  className="kuis-real-checkbox" // Kelas tetap sama untuk disembunyikan
+                  checked={selectedAnswer === option.id} // Logika diubah
+                  onChange={() => handleAnswerChange(option.id)}
+                />
+                <span className="kuis-custom-checkbox"></span> 
+                {option.text}
               </label>
             ))}
           </div>
