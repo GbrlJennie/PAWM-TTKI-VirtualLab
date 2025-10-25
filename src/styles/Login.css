@@ -104,6 +104,7 @@
   border-radius: 12px;
   font-size: 1rem;
   color: #64748b;
+  background: white;
   font-style: italic;
   transition: border-color 0.2s;
 }
@@ -158,6 +159,8 @@
   cursor: pointer;
   transition: background 0.2s;
   margin-top: 1rem;
+  /* width: 200px;
+  align-self: center; */
 }
 
 .login-button:hover {

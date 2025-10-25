@@ -1,0 +1,198 @@
+/* Tata letak Halaman Utama */
+.kuis-main-content {
+  /* Mengikuti layout dari Home.css Anda */
+  margin-left: 200px;  /* Sesuaikan dengan lebar Sidebar Anda */
+  margin-top: 40px;   /* Sesuaikan dengan tinggi Header Anda */
+  padding: 80px;
+  background-color: #ffffff; /* Latar belakang konten putih seperti desain */
+  min-height: calc(100vh - 80px); /* Isi sisa layar */
+  width: calc(100vw - 200px);
+  
+  /* Layout 2 kolom untuk kuis */
+  display: flex;
+  gap: 40px;
+}
+
+.kuis-content-left {
+  flex: 1; /* Mengambil ruang semaksimal mungkin */
+  display: flex;
+  flex-direction: column;
+}
+
+.kuis-right-nav {
+  width: 280px; /* Lebar tetap untuk navigasi kanan */
+}
+
+/* Styling Konten Kiri (Pertanyaan & Pilihan) */
+.kuis-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.kuis-question-text {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 40px;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.kuis-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Styling Pilihan Jawaban (Multiple Choice) */
+.kuis-option-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  color: #4a5568;
+  width: 75%;
+}
+
+.kuis-option-label:hover {
+  background-color: #f8f9fa;
+}
+
+.kuis-option-label.selected {
+  background-color: #f0f5ff; /* Latar biru muda saat dipilih */
+  border-color: #a78bfa; /* Border ungu/biru */
+  color: #1e293b;
+}
+
+/* Sembunyikan checkbox asli */
+.kuis-real-checkbox {
+  display: none;
+}
+
+/* Buat checkbox kustom */
+.kuis-custom-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #cbd5e1;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0; /* Mencegah checkbox mengecil */
+}
+
+.kuis-option-label.selected .kuis-custom-checkbox {
+  background-color: #a78bfa; /* Warna ungu saat dipilih */
+  border-color: #a78bfa;
+}
+
+/* Buat tanda centang kustom menggunakan CSS */
+.kuis-custom-checkbox::after {
+  content: '';
+  display: none;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.kuis-option-label.selected .kuis-custom-checkbox::after {
+  display: block;
+}
+
+/* Tombol Next */
+.kuis-next-button {
+  background-color: #a0aec0; /* Warna abu-abu seperti desain */
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+  width : 15%;
+  
+  /* Mendorong ke kanan bawah */
+  margin-top: auto; /* Mendorong ke bawah */
+  margin-right: 5%;
+  align-self: flex-end; /* Mendorong ke kanan */
+}
+
+.kuis-next-button:hover {
+  background-color: #718096;
+}
+
+/* Styling Navigasi Kanan (Daftar Pertanyaan) */
+.kuis-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.kuis-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent; /* Border placeholder untuk yg 'current' */
+}
+
+.kuis-nav-icon-wrapper {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Status: Belum dijawab (default) */
+.kuis-nav-item.unanswered {
+  background-color: #f1f5f9; /* Biru/abu-abu sangat muda */
+  color: #475569;
+}
+.icon-unanswered-circle {
+  width: 14px;
+  height: 14px;
+  background-color: #ffffff;
+  border-radius: 50%;
+}
+
+/* Status: Pertanyaan Saat Ini (Outer Stroke) */
+.kuis-nav-item.current {
+  background-color: #f1f5f9; /* Latar sama dgn 'unanswered' */
+  border-color: #a78bfa; /* Outer stroke ungu/biru */
+  color: #a78bfa; /* Teks jadi ungu/biru */
+}
+
+/* Status: Jawaban Benar */
+.kuis-nav-item.correct {
+  background-color: #f0fff4; /* Hijau muda */
+  color: #2f855a;
+}
+.icon-correct {
+  color: #38a169;
+}
+
+/* Status: Jawaban Salah */
+.kuis-nav-item.incorrect {
+  background-color: #fff5f5; /* Merah muda */
+  color: #c53030;
+}
+.icon-incorrect {
+  color: #e53e3e;
+}

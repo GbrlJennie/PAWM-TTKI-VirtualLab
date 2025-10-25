@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import TataKata from './pages/TataKata'
 import Login from './pages/Login';
+import KuisEjaan from './pages/KuisEjaan1';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Route path="/Ejaan" element={<TataKata />} />
         <Route path="/Tata-Kata" element={<TataKata />} />
         <Route path="/Tata-Kalimat" element={<TataKata />} />
-        <Route path="/Kuis/:id" element={<TataKata />} />
+        <Route path="/Kuis/Ejaan" element={<KuisEjaan />} />
       </Routes>
     </Router>
   )
