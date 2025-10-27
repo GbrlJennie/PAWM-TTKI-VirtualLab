@@ -5,6 +5,7 @@ import home from '../assets/home.png';
 import materi from '../assets/library_books.png';
 import kuis from '../assets/assessment.png';
 import logout from '../assets/logout.png';
+import { supabase } from '../supabaseClient';
 
 const Sidebar = () => {
   const [isMateriOpen, setIsMateriOpen] = useState(false);
@@ -21,6 +22,16 @@ const Sidebar = () => {
 
   const handleNavigation = (path) => {
     navigate(path);
+  };
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error('Error logging out:', error);
+    } else {
+      // Arahkan ke halaman login setelah berhasil logout
+      navigate('/Login');
+    }
   };
 
   const materiItems = [
@@ -88,7 +99,7 @@ const Sidebar = () => {
           )}
         </div>
       </nav>
-      <div className="logout" onClick={() => handleNavigation('/')}>
+      <div className="logout" onClick={handleLogout}>
         <img src={logout} alt="Logout Icon" className="icon" />
         <span className="label">Logout</span>
       </div>

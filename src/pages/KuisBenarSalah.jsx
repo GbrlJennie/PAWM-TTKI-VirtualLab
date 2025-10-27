@@ -5,73 +5,76 @@ import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import '../styles/BenarSalah.css'; 
 import { Check, X } from 'lucide-react';
+import { benarSalahQuestions } from '../data/benarSalahQuestions';
+
+const statusFromAnswer = (question, answer) => {
+  if (answer === null) return 'unanswered';
+  return answer === question.isCorrect ? 'correct' : 'incorrect';
+};
 
 const KuisBenarSalah = () => {
-  // 2. Siapkan hook
   const navigate = useNavigate();
   const { questionNumber } = useParams();
-  const currentQuestionId = parseInt(questionNumber) || 1;
 
-  // State untuk jawaban (tetap, menggunakan logika Benar/Salah Anda)
-  const [selectedAnswer, setSelectedAnswer] = useState('');
+  const totalQuestions = benarSalahQuestions.length;
+  const currentQuestionIndex = useMemo(() => {
+    const idx = parseInt(questionNumber ?? '1', 10) - 1;
+    return idx >= 0 && idx < totalQuestions ? idx : 0;
+  }, [questionNumber, totalQuestions]);
 
-  // Data opsi (tetap)
+  const currentQuestion = benarSalahQuestions[currentQuestionIndex];
+  
+  // 3. State untuk SEMUA jawaban (bukan cuma 1)
+  const [answers, setAnswers] = useState({}); // format: { 1: true, 2: false, ... }
+
+  // Ambil jawaban untuk soal ini, 'null' jika belum dijawab
+  const selectedAnswer = answers[currentQuestion?.id] ?? null;
   const options = [
-    { id: 'Benar', text: 'Benar' },
-    { id: 'Salah', text: 'Salah' },
+    { id: 'true', text: 'Benar' },
+    { id: 'false', text: 'Salah' },
   ];
-
-  // Data navigasi (tetap)
-  const questionsData = [
-    { id: 1, text: 'Pertanyaan 1', status: 'unanswered' },
-    { id: 2, text: 'Pertanyaan 2', status: 'unanswered' },
-    { id: 3, text: 'Pertanyaan 3', status: 'unanswered' },
-    { id: 4, text: 'Pertanyaan 4', status: 'unanswered' },
-    { id: 5, text: 'Pertanyaan 5', status: 'unanswered' },
-    { id: 6, text: 'Pertanyaan 6', status: 'unanswered' },
-    { id: 7, text: 'Pertanyaan 7', status: 'unanswered' },
-    { id: 8, text: 'Pertanyaan 8', status: 'unanswered' },
-    { id: 9, text: 'Pertanyaan 9', status: 'unanswered' },
-    { id: 10, text: 'Pertanyaan 10', status: 'unanswered' },
-  ];
-
   // Fungsi handle jawaban (tetap)
   const handleAnswerChange = (optionId) => {
-    setSelectedAnswer(optionId);
+    setAnswers((prev) => ({
+      ...prev,
+      [currentQuestion.id]: optionId
+    }));
   };
 
   // 3. Perbarui fungsi navigasi
   const getNavClass = (question) => {
     if (question.id === currentQuestionId) return 'current';
-    return question.status;
+    return statusFromAnswer(question, answers[question.id]?? null);
   };
 
   const getNavIcon = (question) => {
     if (question.id === currentQuestionId) return null;
     // ... (logika switch case Anda tetap sama) ...
+    status 
     switch (question.status) {
       case 'correct':
         return <Check size={18} className="icon-correct" />;
       case 'incorrect':
         return <X size={18} className="icon-incorrect" />;
-      case 'unanswered':
-        return <div className="icon-unanswered-circle"></div>;
       default:
-        return null;
+        return <div className="icon-unanswered-circle"></div>;
     }
   };
 
   // 4. Buat fungsi untuk tombol "Next"
   const handleNextClick = () => {
-    const nextQuestion = currentQuestionId + 1;
+    const nextQuestion = currentQuestionIndex + 2; // (index 0-based + 2 = nomor soal 1-based berikutnya)
 
-    if (nextQuestion <= 10) {
-      // Pindah ke soal Benar/Salah berikutnya
-      navigate(`/kuis/ejaan/benar-salah/${nextQuestion}`);
+    if (nextQuestion <= totalQuestions) {
+      navigate(`/Kuis/Tata-Kata/${nextQuestion}`);
     } else {
-      // Selesai! Pindah ke section Drag and Drop (atau Halaman Hasil)
-      navigate('/kuis/ejaan/drag-and-drop/1'); // Ganti ini ke halaman hasil jika sudah selesai
-      // Contoh: navigate('/kuis/ejaan/hasil');
+      // Selesai! Kirim data ke Halaman Hasil
+      navigate('/kuis/tata-kata/hasil', { 
+        state: { 
+          answers: answers,
+          questions: benarSalahQuestions 
+        } 
+      });
     }
   };
 
@@ -81,10 +84,9 @@ const KuisBenarSalah = () => {
       <Sidebar />
       <main className="kuis-main-content">
         <div className="kuis-content-left">
-          <h1 className="kuis-title">Kuis Ejaan (Benar atau Salah)</h1>
+          <h1 className="kuis-title">Kuis Tata Kata (Benar atau Salah)</h1>
           <p className="kuis-question-text">
-            {/* Nanti ganti ini dengan soal dinamis */}
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit?
+            {currentQuestion?.text}
           </p>
 
           <div className="kuis-options-list horizontal">
@@ -92,16 +94,14 @@ const KuisBenarSalah = () => {
               <label
                 key={option.id}
                 className={`kuis-option-label ${
-                  // Logika diubah dari .includes() menjadi ===
                   selectedAnswer === option.id ? 'selected' : ''
                 }`}
               >
                 <input
-                  // --- PERUBAHAN KUNCI 5 ---
-                  type="radio" // UBAH KE RADIO
-                  name="kuis-benar-salah" // BERI NAMA AGAR SALING TERIKAT
-                  className="kuis-real-checkbox" // Kelas tetap sama untuk disembunyikan
-                  checked={selectedAnswer === option.id} // Logika diubah
+                  type="radio"
+                  name={`kuis-benar-salah-${currentQuestion.id}`}
+                  className="kuis-real-checkbox"
+                  checked={selectedAnswer === option.id}
                   onChange={() => handleAnswerChange(option.id)}
                 />
                 <span className="kuis-custom-checkbox"></span> 
@@ -110,25 +110,23 @@ const KuisBenarSalah = () => {
             ))}
           </div>
 
-          {/* 5. Tambahkan onClick ke tombol Next */}
           <button className="kuis-next-button" onClick={handleNextClick}>
-            Next →
+            {currentQuestionIndex === totalQuestions - 1 ? 'Selesai →' : 'Next →'}
           </button>
         </div>
 
         <aside className="kuis-right-nav">
           <div className="kuis-nav-list">
-            {questionsData.map((q) => (
+            {benarSalahQuestions.map((q) => (
               <div
                 key={q.id}
                 className={`kuis-nav-item ${getNavClass(q)}`}
-                // 6. Buat navigasi kanan bisa diklik
-                onClick={() => navigate(`/kuis/ejaan/benar-salah/${q.id}`)}
+                onClick={() => navigate(`/Kuis/Tata-Kata/${q.id}`)}
               >
                 <span className="kuis-nav-icon-wrapper">
                   {getNavIcon(q)}
                 </span>
-                {q.text}
+                {`Pertanyaan ${q.id}`}
               </div>
             ))}
           </div>

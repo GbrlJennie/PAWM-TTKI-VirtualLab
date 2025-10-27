@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import '../styles/Register.css'; 
+import { supabase } from '../supabaseClient';
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,9 +16,11 @@ function Register() {
     console.log('Register:', { firstName, lastName, email, password });
   };
 
-  const handleGoogleLogin = () => {
-    // Handle Google register logic here
-    console.log('Google register');
+  const handleGoogleLogin = async() => {
+    const {error} = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+    });
+    if (error) console.log('Error: ', error.message);
   };
 
   return (

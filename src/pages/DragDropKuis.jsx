@@ -3,6 +3,7 @@ import Sidebar from '../components/Sidebar';
 import '../styles/DragDropKuis.css';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { supabase } from '../supabaseClient';
 
 const questionSets = {
   ejaan: [
@@ -109,18 +110,40 @@ const DragDropKuis = ({ quizType = 'Tata-Kalimat' }) => {
   const basePath =
     quizType === 'tata-kalimat' ? '/kuis/tata-kalimat/drag-and-drop' : '/kuis/tata-kalimat/drag-and-drop';
 
-  const handleNextClick = () => {
-    // currentQuestionIndex is zero-based; question numbers in the route are 1-based
-    const nextQuestionNumber = currentQuestionIndex + 2; // +1 to move to next, +1 for 1-based numbering
-
-    if (nextQuestionNumber <= totalQuestions) {
-      // Jika masih ada soal di section ini, pindah ke soal berikutnya
-      navigate(`${basePath}/${nextQuestionNumber}`);
-    } else {
-      // Jika sudah melewati jumlah soal di section ini, kembali ke soal pertama di section yang sama
-      navigate(`${basePath}/1`);
+  const saveDragDropResult = async (score, total, questionTitle) => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data, error } = await supabase
+          .from('quiz_results')
+          .insert([
+            {
+              user_id: user.id,
+              // Kita buat quiz_type unik untuk tiap soal drag/drop
+              quiz_type: `Drag Drop: ${questionTitle}`,
+              score: score,
+              total: total
+            }
+          ]);
+        if (error) throw error;
+        console.log('DragDrop result saved:', data);
+      }
+    } catch (error) {
+      console.error('Error saving DragDrop result:', error.message);
     }
-    // (Anda mungkin ingin menyimpan jawaban user di sini sebelum pindah)
+  };
+
+  const handleNextClick = () => {
+    // 3. PANGGIL FUNGSI SIMPAN SEBELUM NAVIGASI
+    if (checked) {
+      // Hitung skor dari state feedback
+      const currentQuestion = questions[currentQuestionIndex];
+      const correctTotal = Object.values(feedback).filter(f => f === 'correct').length;
+      const total = currentQuestion.sentences.length;
+      
+      // Kirim ke Supabase
+      saveDragDropResult(correctTotal, total, currentQuestion.title);
+    }
   };
 
   const handleDragStart = (item) => setDraggingItem(item);

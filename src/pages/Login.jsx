@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import '../styles/Login.css';
+import { supabase } from '../supabaseClient';
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,9 +14,11 @@ function Login() {
     console.log('Login:', { email, password });
   };
 
-  const handleGoogleLogin = () => {
-    // Handle Google login logic here
-    console.log('Google login');
+  const handleGoogleLogin = async() => {
+    const {error} = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+    });
+    if (error) console.log('Error: ', error.message);
   };
 
   return (

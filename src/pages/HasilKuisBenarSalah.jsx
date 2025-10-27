@@ -2,48 +2,46 @@ import React, { useMemo, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
-import '../styles/MultipleChoiceResult.css';
-import { multipleChoiceQuestions } from '../data/multipleChoiceQuestions';
+import '../styles/MultipleChoiceResult.css'; // Kita bisa pakai style yang sama
 import { supabase } from '../supabaseClient';
 
-const HasilKuisMultiple = () => {
+const HasilKuisBenarSalah = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
+  
+  // Ambil data dari state navigasi
   const answers = state?.answers ?? {};
+  const questions = state?.questions ?? [];
+
   const summary = useMemo(() => {
-    const detail = multipleChoiceQuestions.map((question) => {
-      const selected = answers[question.id] ?? [];
-      const correctIds = question.options.filter((opt) => opt.isCorrect).map((opt) => opt.id);
-      const isCorrect =
-        selected.length === correctIds.length &&
-        correctIds.every((id) => selected.includes(id));
-      return { question, selected, correctIds, isCorrect };
+    const detail = questions.map((question) => {
+      const selected = answers[question.id] ?? null;
+      const isCorrect = selected === question.isCorrect;
+      return { question, selected, isCorrect };
     });
     const correctTotal = detail.filter((item) => item.isCorrect).length;
     return { detail, correctTotal, total: detail.length };
-  }, [answers]);
+  }, [answers, questions]);
 
+  // Simpan hasil ke Supabase
   useEffect(() => {
     const saveResult = async () => {
       try {
-        // Ambil ID pengguna yang sedang login
         const { data: { user } } = await supabase.auth.getUser();
         
-        if (user) {
+        if (user && summary.total > 0) { // Pastikan ada data
           const { data, error } = await supabase
-            .from('quiz_results') // Nama tabel Anda
+            .from('quiz_results')
             .insert([
               { 
                 user_id: user.id, 
-                quiz_type: 'Multiple Choice Ejaan', // Sesuaikan namanya
+                quiz_type: 'Benar Salah Tata Kata', // <-- NAMA KUIS BERBEDA
                 score: summary.correctTotal,
                 total: summary.total
               }
             ]);
 
-          if (error) {
-            throw error;
-          }
+          if (error) throw error;
           console.log('Quiz result saved:', data);
         }
       } catch (error) {
@@ -51,14 +49,14 @@ const HasilKuisMultiple = () => {
       }
     };
 
-    // Hanya jalankan jika ada jawaban (mencegah simpan data kosong jika user refresh)
     if (state?.answers) {
       saveResult();
     }
   }, [summary, state]);
 
+  // Jika user refresh halaman/datang tanpa state, tendang ke awal kuis
   if (!state?.answers) {
-    navigate('/kuis/ejaan/multiple-choice/1', { replace: true });
+    navigate('/Kuis/Tata-Kata/1', { replace: true });
     return null;
   }
 
@@ -68,7 +66,7 @@ const HasilKuisMultiple = () => {
       <Sidebar />
       <main className="kuis-result-content">
         <section className="kuis-result-header">
-          <h1>Hasil Kuis Multiple Choice</h1>
+          <h1>Hasil Kuis Benar Salah</h1>
           <p>
             Skor kamu {summary.correctTotal} dari {summary.total} pertanyaan
             ({Math.round((summary.correctTotal / summary.total) * 100)}%).
@@ -76,22 +74,18 @@ const HasilKuisMultiple = () => {
         </section>
 
         <section className="kuis-result-list">
-          {summary.detail.map(({ question, selected, correctIds, isCorrect }) => (
+          {summary.detail.map(({ question, selected, isCorrect }) => (
             <article key={question.id} className={`kuis-result-card ${isCorrect ? 'correct' : 'incorrect'}`}>
               <h2>{`Pertanyaan ${question.id}`}</h2>
               <p className="kuis-result-question">{question.text}</p>
               <div className="kuis-result-answers">
                 <p>
                   Jawaban kamu:{' '}
-                  {selected.length
-                    ? selected.map((id) => `${id}. ${question.options.find((opt) => opt.id === id)?.text}`).join(', ')
-                    : 'Belum dijawab'}
+                  {selected === null ? 'Belum dijawab' : (selected ? 'Benar' : 'Salah')}
                 </p>
                 <p>
                   Jawaban benar:{' '}
-                  {correctIds
-                    .map((id) => `${id}. ${question.options.find((opt) => opt.id === id)?.text}`)
-                    .join(', ')}
+                  {question.isCorrect ? 'Benar' : 'Salah'}
                 </p>
               </div>
             </article>
@@ -99,12 +93,12 @@ const HasilKuisMultiple = () => {
         </section>
 
         <div className="kuis-result-actions">
-          <button onClick={() => navigate('/kuis/ejaan/multiple-choice/1')}>Ulangi Kuis</button>
-          <button onClick={() => navigate('/Kuis/Ejaan')}>Kembali ke Menu Kuis</button>
+          <button onClick={() => navigate('/Kuis/Tata-Kata/1')}>Ulangi Kuis</button>
+          <button onClick={() => navigate('/')}>Kembali ke Beranda</button>
         </div>
       </main>
     </div>
   );
 };
 
-export default HasilKuisMultiple;
+export default HasilKuisBenarSalah;
