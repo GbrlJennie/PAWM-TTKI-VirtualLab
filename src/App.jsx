@@ -12,7 +12,7 @@ import DragDropKuis from './pages/DragDropKuis'
 import HasilKuisMultiple from './pages/HasilKuisMultiple';
 import HasilKuisBenarSalah from './pages/HasilKuisBenarSalah';
 import {supabase} from './supabaseClient'
-import { use } from 'react'
+import React, { useState, useEffect } from 'react';
 
 function App() {
   const [session, setSession] = useState(null)

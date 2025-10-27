@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-// 1. Import hook
+import React, { useState, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
@@ -43,14 +42,12 @@ const KuisBenarSalah = () => {
 
   // 3. Perbarui fungsi navigasi
   const getNavClass = (question) => {
-    if (question.id === currentQuestionId) return 'current';
+    if (question.id === currentQuestion.id) return 'current';
     return statusFromAnswer(question, answers[question.id]?? null);
   };
 
   const getNavIcon = (question) => {
     if (question.id === currentQuestionId) return null;
-    // ... (logika switch case Anda tetap sama) ...
-    status 
     switch (question.status) {
       case 'correct':
         return <Check size={18} className="icon-correct" />;
