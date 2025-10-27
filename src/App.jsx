@@ -2,11 +2,13 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/Home'
 import TataKata from './pages/TataKata'
+import TataKalimat from './pages/TataKalimat'
 import Ejaan from './pages/Ejaan'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import KuisMultipleChoice from './pages/KuisMultipleChoice' 
+import KuisMultipleChoice from './pages/KuisMultipleChoice'
 import KuisBenarSalah from './pages/KuisBenarSalah'
+import DragDropKuis from './pages/DragDropKuis'
 
 function App() {
   return (
@@ -17,19 +19,13 @@ function App() {
         <Route path="/Register" element={<Register />} />
         <Route path="/Ejaan" element={<Ejaan />} />
         <Route path="/Tata-Kata" element={<TataKata />} />
-        <Route path="/Tata-Kalimat" element={<TataKata />} />
+        <Route path="/Tata-Kalimat" element={<TataKalimat />} />
+
         <Route path="/Kuis/Ejaan" element={<Navigate to="/kuis/ejaan/multiple-choice/1" replace />} />
         <Route path="/kuis/ejaan/multiple-choice/:questionNumber" element={<KuisMultipleChoice />} />
-        <Route path="/kuis/ejaan/benar-salah/:questionNumber" element={<KuisBenarSalah />} />
-
-        {/* Nanti Anda bisa tambahkan ini untuk drag and drop */}
-        {/* <Route path="/kuis/ejaan/drag-and-drop/:questionNumber" element={<KuisDragAndDrop />} /> */}
-
-        {/* --- Anda bisa ulangi pola yang sama untuk Kuis Tata Kata --- */}
-        <Route path="/Kuis/Tata-Kata" element={<Navigate to="/kuis/tata-kata/multiple-choice/1" replace />} />
-        {/* <Route path="/kuis/tata-kata/multiple-choice/:questionNumber" element={...} /> */}
-        {/* <Route path="/kuis/tata-kata/benar-salah/:questionNumber" element={...} /> */}
-
+        <Route path="/Kuis/Tata-Kata" element={<KuisBenarSalah />} />
+        <Route path="/Kuis/Tata-Kalimat/drag-and-drop" element={<Navigate to="/Kuis/Tata-Kalimat/drag-and-drop/1" replace />} />
+        <Route path="/Kuis/Tata-Kalimat" element={<DragDropKuis />} />
       </Routes>
     </Router>
   )

@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import '../styles/MateriDetail.css';
 import ejaanImg from '../assets/Ejaan-Banner.png';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Ejaan = () => {
   const [activeSection, setActiveSection] = useState('pengantar');

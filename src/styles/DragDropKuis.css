@@ -1,0 +1,260 @@
+.dragdrop-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f8f9fb;
+}
+
+.dragdrop-content {
+  margin-left: 200px;
+  margin-top: 80px;
+  padding: 32px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.dragdrop-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #1f2933;
+}
+
+.dragdrop-header p {
+  color: #4a5568;
+  max-width: 720px;
+  line-height: 1.6;
+}
+
+.dragdrop-pool {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(15, 15, 15, 0.06);
+  min-height: 160px;
+  align-items: flex-start;
+}
+
+.dragdrop-chip {
+  background-color: #eef2ff;
+  color: #1f2933;
+  border-radius: 999px;
+  padding: 12px 20px;
+  cursor: grab;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-size: 14px;
+  line-height: 1.4;
+  box-shadow: 0 4px 12px rgba(60, 64, 67, 0.1);
+}
+
+.dragdrop-chip:active {
+  cursor: grabbing;
+  transform: scale(0.98);
+}
+
+.dragdrop-empty {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.dragdrop-zone {
+  border: 2px dashed #b6c2ff;
+  border-radius: 24px;
+  min-height: 220px;
+  background: linear-gradient(135deg, #f4f6ff 0%, #eef2ff 100%);
+  padding: 32px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.dragdrop-zone:hover {
+  border-color: #4f46e5;
+}
+
+.dragdrop-zone-label {
+  position: absolute;
+  top: -14px;
+  left: 32px;
+  background: #f8f9fb;
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4f46e5;
+  text-transform: uppercase;
+}
+
+.dragdrop-placeholder {
+  color: #94a3b8;
+  font-size: 16px;
+  text-align: center;
+  margin: auto;
+}
+
+.dragdrop-answer-list {
+  counter-reset: answer-counter;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.dragdrop-answer-item {
+  counter-increment: answer-counter;
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 16px 20px;
+  border: 1px solid #c7d2fe;
+  box-shadow: 0 12px 30px rgba(79, 70, 229, 0.08);
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: #1f2933;
+  line-height: 1.5;
+}
+
+.dragdrop-answer-item::before {
+  content: counter(answer-counter) ".";
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6366f1;
+  font-weight: 700;
+}
+
+.dragdrop-answer-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(79, 70, 229, 0.16);
+}
+
+@media (max-width: 1024px) {
+  .dragdrop-content {
+    margin-left: 150px;
+    padding: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dragdrop-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .dragdrop-pool {
+    justify-content: center;
+  }
+
+  .dragdrop-zone {
+    min-height: 180px;
+  }
+}
+
+.dragdrop-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.kuis-next-button {
+  padding: 12px 28px;
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 12px 24px rgba(79, 70, 229, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kuis-next-button:disabled {
+  background: #cbd5f5;
+  color: #7c83b5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.kuis-next-button:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(79, 70, 229, 0.36);
+}
+
+/* ...existing code... */
+
+.dragdrop-zones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.dragdrop-zone-column {
+  border: 2px dashed #b6c2ff;
+  border-radius: 16px;
+  min-height: 200px;
+  background: linear-gradient(135deg, #fbfbff 0%, #f0f4ff 100%);
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dragdrop-zone-column .dragdrop-zone-label {
+  position: relative;
+  top: 0;
+  left: 0;
+  background: transparent;
+  padding: 0;
+  font-size: 14px;
+  color: #4f46e5;
+  text-transform: none;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.dragdrop-answer-item.correct {
+  border-color: #22c55e;
+  box-shadow: 0 12px 30px rgba(34, 197, 94, 0.08);
+}
+
+.dragdrop-answer-item.incorrect {
+  border-color: #ef4444;
+  box-shadow: 0 12px 30px rgba(239, 68, 68, 0.08);
+}
+
+/* smaller screens: stack zones */
+@media (max-width: 768px) {
+  .dragdrop-zones {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* New buttons */
+.kuis-check-button {
+  padding: 12px 22px;
+  background: #10b981;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-right: 12px;
+  box-shadow: 0 10px 22px rgba(16, 185, 129, 0.18);
+}
+
+.kuis-check-button:disabled {
+  background: #9be7cb;
+  color: #dff7ec;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ...existing code... */
