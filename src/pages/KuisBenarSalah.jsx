@@ -47,7 +47,7 @@ const KuisBenarSalah = () => {
   };
 
   const getNavIcon = (question) => {
-    if (question.id === currentQuestionId) return null;
+    if (question.id === currentQuestion.id) return null;
     switch (question.status) {
       case 'correct':
         return <Check size={18} className="icon-correct" />;

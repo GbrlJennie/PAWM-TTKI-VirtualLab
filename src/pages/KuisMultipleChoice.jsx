@@ -3,15 +3,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import '../styles/MultipleChoice.css';
-import { Check, X } from 'lucide-react';
 import { multipleChoiceQuestions } from '../data/multipleChoiceQuestions';
 
 const statusFromAnswer = (question, answerIds) => {
-  if (!Array.isArray(answerIds) || answerIds.length === 0) return 'unanswered';
-  const correctIds = question.options.filter((opt) => opt.isCorrect).map((opt) => opt.id).sort();
-  const selected = [...answerIds].sort();
-  if (correctIds.length !== selected.length) return 'incorrect';
-  return correctIds.every((id, idx) => id === selected[idx]) ? 'correct' : 'incorrect';
+  if (!Array.isArray(answerIds) || answerIds.length === 0) {
+    return 'unanswered';
+  } 
+  return 'answered';
 };
 
 const KuisMultipleChoice = () => {
@@ -30,6 +28,17 @@ const KuisMultipleChoice = () => {
   const correctCount = currentQuestion?.options.filter((opt) => opt.isCorrect).length ?? 0;
   const allowMultiple = correctCount > 1;
 
+  const isLastQuestion = currentQuestionIndex === totalQuestions - 1;
+
+  const allAnswered = useMemo(() => {
+    if (Object.keys(answers).length < totalQuestions) {
+      return false;
+    }
+    return multipleChoiceQuestions.every(
+      (q) => answers[q.id] && answers[q.id].length > 0
+    );
+  }, [answers, totalQuestions]);
+
   const handleAnswerChange = (optionId) => {
     setAnswers((prev) => {
       const current = prev[currentQuestion.id] ?? [];
@@ -43,9 +52,11 @@ const KuisMultipleChoice = () => {
     const nextQuestion = currentQuestionIndex + 2;
     if (nextQuestion <= totalQuestions) {
       navigate(`/kuis/ejaan/multiple-choice/${nextQuestion}`);
-    } else {
-      navigate('/kuis/ejaan/multiple-choice/hasil', { state: { answers } });
-    }
+    } 
+  };
+
+  const handleSubmitClick = () => {
+    navigate('/kuis/ejaan/multiple-choice/hasil', { state: { answers } });
   };
 
   return (
@@ -79,16 +90,28 @@ const KuisMultipleChoice = () => {
             ))}
           </div>
 
-          <button className="kuis-next-button" onClick={handleNextClick}>
-            Next →
-          </button>
+          {isLastQuestion ? (
+            <button 
+              className="kuis-submit-button" 
+              onClick={handleSubmitClick}
+              disabled={!allAnswered} 
+              title={!allAnswered ? 'Harap jawab semua pertanyaan' : 'Kumpulkan jawaban'}
+            >
+              Submit
+            </button>
+          ) : (
+            <button className="kuis-next-button" onClick={handleNextClick}>
+              Next →
+            </button>
+          )}
         </div>
 
         <aside className="kuis-right-nav">
           <div className="kuis-nav-list">
             {multipleChoiceQuestions.map((question) => {
-              const status = statusFromAnswer(question, answers[question.id]);
+              const status = statusFromAnswer(answers[question.id]);
               const isCurrent = question.id === currentQuestion?.id;
+
               return (
                 <div
                   key={question.id}
@@ -97,10 +120,8 @@ const KuisMultipleChoice = () => {
                 >
                   <span className="kuis-nav-icon-wrapper">
                     {!isCurrent &&
-                      (status === 'correct' ? (
-                        <Check size={18} className="icon-correct" />
-                      ) : status === 'incorrect' ? (
-                        <X size={18} className="icon-incorrect" />
+                      (status === 'answered' ? (
+                        <div className="icon-answered-dot" /> 
                       ) : (
                         <div className="icon-unanswered-circle" />
                       ))}
