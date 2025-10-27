@@ -88,7 +88,7 @@ function App() {
         <Route path="/kuis/ejaan/multiple-choice/:questionNumber" element={<KuisMultipleChoice />} />
 
         <Route path="/kuis/tata-kata/hasil" element={<HasilKuisBenarSalah />} /> 
-        <Route path="/Kuis/Tata-Kata" element={<Navigate to="/Kuis/benar-salah/1" replace />} /> 
+        <Route path="/Kuis/Tata-Kata" element={<Navigate to="/Kuis/Tata-Kata/1" replace />} /> 
         <Route path="/Kuis/Tata-Kata/:questionNumber" element={<KuisBenarSalah />} /> 
 
         <Route path="/Kuis/Tata-Kalimat/drag-and-drop" element={<Navigate to="/Kuis/Tata-Kalimat/drag-and-drop/1" replace />} />
