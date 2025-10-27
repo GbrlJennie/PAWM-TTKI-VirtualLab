@@ -2,16 +2,27 @@ import { useState } from 'react';
 import { Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import '../styles/Login.css';
 import { supabase } from '../supabaseClient';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle login logic here
-    console.log('Login:', { email, password });
+    try {
+      const {data, error} = await supabase.auth.signInWithPassword({
+        email : email,
+        password : password,
+      });
+      if (error) throw error;
+      navigate('/');
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   const handleGoogleLogin = async() => {

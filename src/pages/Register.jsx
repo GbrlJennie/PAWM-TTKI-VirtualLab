@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import '../styles/Register.css'; 
 import { supabase } from '../supabaseClient';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -9,13 +10,30 @@ function Register() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle register logic here
-    console.log('Register:', { firstName, lastName, email, password });
+    try {
+      const {data, error} = await supabase.auth.signUp({
+        email : email,
+        password : password,
+        options: {
+          data: {
+            first_name: firstName,
+            last_name: lastName,
+            full_name: `${firstName} ${lastName}`,
+          }
+        }
+      });
+      if (error) throw error;
+      alert('Registration successful! Go to Login page.');
+      navigate('/login');
+    } catch (error) {
+      alert(error.message);
+    }
   };
-
   const handleGoogleLogin = async() => {
     const {error} = await supabase.auth.signInWithOAuth({
       provider: 'google',

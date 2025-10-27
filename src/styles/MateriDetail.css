@@ -4,12 +4,30 @@
   min-height: 100vh;
   background-color: #f5f5f5;
 }
+.table-wrapper {
+  overflow-x: auto;
+  margin: 24px 0;
+}
+
+.materi-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.materi-table thead {
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+}
 
 .materi-content {
   margin-left: 200px;
   margin-top: 80px;
   padding: 0;
   flex: 1;
+  color : #000
 }
 
 .materi-banner {
@@ -266,5 +284,78 @@
   .section-item.active {
     border-left: none;
     border-bottom-color: #2196F3;
+  }
+}
+.materi-table th,
+.materi-table td {
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.materi-table th {
+  font-weight: 700;
+  color: #312e81;
+}
+
+.materi-table tbody tr:nth-child(every) {
+  background: #fff;
+}
+
+.materi-table tbody tr:nth-child(odd) {
+  background: #f8fafc;
+}
+
+.materi-table tbody tr:hover {
+  background: #eef2ff;
+}
+
+.content-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.content-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 12px 30px rgba(15, 15, 15, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.content-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(79, 70, 229, 0.18);
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.card-subtitle {
+  color: #4b5563;
+  margin-bottom: 12px;
+}
+
+.card-text {
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.6;
+}
+
+
+@media (max-width: 768px) {
+  .content-cards {
+    grid-template-columns: 1fr;
+  }
+  .materi-table th,
+  .materi-table td {
+    padding: 12px;
   }
 }
