@@ -100,7 +100,7 @@ const HasilKuisMultiple = () => {
 
         <div className="kuis-result-actions">
           <button onClick={() => navigate('/kuis/ejaan/multiple-choice/1')}>Ulangi Kuis</button>
-          <button onClick={() => navigate('/Kuis/Ejaan')}>Kembali ke Menu Kuis</button>
+          <button onClick={() => navigate('/Ejaan')}>Kembali ke Materi</button>
         </div>
       </main>
     </div>

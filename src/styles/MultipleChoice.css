@@ -111,7 +111,7 @@
 }
 
 /* Tombol Next */
-.kuis-next-button {
+.kuis-submit-button {
   background-color: #a0aec0; /* Warna abu-abu seperti desain */
   color: white;
   border: none;
@@ -129,7 +129,7 @@
   align-self: flex-end; /* Mendorong ke kanan */
 }
 
-.kuis-next-button:hover {
+.kuis-submit-button:hover:not(:disabled) {
   background-color: #718096;
 }
 
@@ -179,20 +179,45 @@
   color: #a78bfa; /* Teks jadi ungu/biru */
 }
 
-/* Status: Jawaban Benar */
-.kuis-nav-item.correct {
-  background-color: #f0fff4; /* Hijau muda */
-  color: #2f855a;
+/* Status: Sudah Dijawab (UI Modern) */
+.kuis-nav-item.answered {
+  background-color: #f0f5ff; /* Latar biru/ungu sangat muda */
+  color: #a78bfa; /* Teks ungu/biru */
+  border-color: #a78bfa; /* Border tipis */
+  font-weight: 600;
 }
-.icon-correct {
-  color: #38a169;
+.icon-answered-dot {
+  width: 12px;
+  height: 12px;
+  background-color: #a78bfa; /* Lingkaran penuh warna */
+  border-radius: 50%;
 }
 
-/* Status: Jawaban Salah */
-.kuis-nav-item.incorrect {
-  background-color: #fff5f5; /* Merah muda */
-  color: #c53030;
+.kuis-next-button {
+  /* Mirip dengan next-button tapi warna primer */
+  background-color: #a78bfa; /* Warna ungu/biru primer Anda */
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  width : 15%;
+  margin-top: auto; 
+  margin-right: 5%;
+  align-self: flex-end;
 }
-.icon-incorrect {
-  color: #e53e3e;
+
+.kuis-next-button:hover {
+  background-color: #9333ea; /* Warna hover yang lebih gelap */
+}
+
+/* Style saat tombol disabled */
+.kuis-submit-button:disabled {
+  background-color: #e0e7ff; /* Warna pudar */
+  color: #a78bfa;
+  cursor: not-allowed;
+  opacity: 0.8;
 }
