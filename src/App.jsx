@@ -9,6 +9,7 @@ import Register from './pages/Register'
 import KuisMultipleChoice from './pages/KuisMultipleChoice'
 import KuisBenarSalah from './pages/KuisBenarSalah'
 import DragDropKuis from './pages/DragDropKuis'
+import HasilKuisMultiple from './pages/HasilKuisMultiple';
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
         <Route path="/Ejaan" element={<Ejaan />} />
         <Route path="/Tata-Kata" element={<TataKata />} />
         <Route path="/Tata-Kalimat" element={<TataKalimat />} />
-
+        <Route path="/kuis/ejaan/multiple-choice/hasil" element={<HasilKuisMultiple />} />
         <Route path="/Kuis/Ejaan" element={<Navigate to="/kuis/ejaan/multiple-choice/1" replace />} />
         <Route path="/kuis/ejaan/multiple-choice/:questionNumber" element={<KuisMultipleChoice />} />
         <Route path="/Kuis/Tata-Kata" element={<KuisBenarSalah />} />
