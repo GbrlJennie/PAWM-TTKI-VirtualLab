@@ -16,61 +16,62 @@ body {
 }
 
 .main-content {
-  margin-left: 200px;
-  margin-top: 80px;
-  padding: 40px;
+  margin-left: 180px;
+  margin-top: 72px;
+  padding: 28px 32px;
   flex: 1;
   background-color: #f5f5f5;
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 72px);
+  max-width: 1200px;
 }
 
 .main-content h1 {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
   color: #333;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .subtitle {
-  font-size: 16px;
+  font-size: 20px;
   color: #999;
-  margin-bottom: 40px;
+  margin-bottom: 28px;
 }
 
 .courses-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
+  gap: 24px;
 }
 
 .course-card {
-  border-radius: 50px;
+  border-radius: 32px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 200px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 160px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .course-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
 }
 
 .course-title {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
   color: #fff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .course-text {
-  font-size: 48px;
-  font-weight: bold;
-  color: rgba(255, 255, 255, 0.3);
+  font-size: 36px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.28);
   text-align: center;
 }
 
@@ -86,7 +87,8 @@ body {
   }
 
   .main-content {
-    margin-left: 150px;
+    margin-left: 0;
+    margin-top: 64px;
     padding: 20px;
   }
 }
