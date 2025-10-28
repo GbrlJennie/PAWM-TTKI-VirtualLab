@@ -1,6 +1,9 @@
 /* Tata letak Halaman Utama */
 .kuis-main-content {
   /* Mengikuti layout dari Home.css Anda */
+  width: 100%;
+  max-width: 1080px;
+  margin: 64px auto 40px;
   margin-left: 160px;  /* Sesuaikan dengan lebar Sidebar Anda */
   margin-top: 64px;   /* Sesuaikan dengan tinggi Header Anda */
   padding: 32px 40px;
@@ -20,7 +23,7 @@
 }
 
 .kuis-right-nav {
-  width: 220px; /* Lebar tetap untuk navigasi kanan */
+  width: 200px; /* Lebar tetap untuk navigasi kanan */
 }
 
 /* Styling Konten Kiri (Pertanyaan & Pilihan) */
