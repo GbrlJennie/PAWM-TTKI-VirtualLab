@@ -94,7 +94,7 @@ const HasilKuisBenarSalah = () => {
 
         <div className="kuis-result-actions">
           <button onClick={() => navigate('/Kuis/Tata-Kata/1')}>Ulangi Kuis</button>
-          <button onClick={() => navigate('/')}>Kembali ke Beranda</button>
+          <button onClick={() => navigate('/Tata-Kata')}>Kembali ke Materi</button>
         </div>
       </main>
     </div>

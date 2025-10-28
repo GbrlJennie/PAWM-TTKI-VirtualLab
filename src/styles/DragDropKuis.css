@@ -22,9 +22,13 @@
 }
 
 .dragdrop-header p {
-  color: #4a5568;
+  color: #0f0f10;
   max-width: 720px;
   line-height: 1.6;
+}
+.dragdrop-header h2{
+  color :rgb(27, 19, 150);
+  font-weight : 500;
 }
 
 .dragdrop-pool {
@@ -257,4 +261,154 @@
   box-shadow: none;
 }
 
-/* ...existing code... */
+/* ... CSS DragDropKuis.css yang sudah ada ... */
+
+/* Styling untuk Halaman Hasil Kuis (Diadaptasi dari MultipleChoiceResult.css) */
+
+/* Container utama halaman hasil */
+.kuis-result-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f7f8fc; /* Latar belakang abu-abu muda */
+}
+
+/* Konten utama, beri jarak dari header dan sidebar */
+.kuis-result-content {
+  flex: 1;
+  margin-left: 200px; /* Sesuaikan dengan lebar Sidebar Anda */
+  margin-top: 80px;  /* Sesuaikan dengan tinggi Header Anda */
+  padding: 32px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px; /* Jarak antar elemen (header, list, actions) */
+}
+
+/* Header Halaman Hasil */
+.kuis-result-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1f2933; /* Warna teks gelap */
+  margin-bottom: 8px;
+}
+
+.kuis-result-header p {
+  color: #4a5568; /* Warna teks abu-abu */
+  font-size: 16px;
+}
+
+/* Daftar Kartu Hasil */
+.kuis-result-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Jarak antar kartu hasil */
+}
+
+/* Kartu Individual untuk Setiap Pertanyaan/Hasil */
+.kuis-result-card {
+  background: #ffffff; /* Latar belakang putih */
+  border-radius: 16px; /* Sudut membulat */
+  padding: 24px 28px;
+  box-shadow: 0 16px 40px rgba(15, 15, 15, 0.08); /* Bayangan halus */
+  border: 2px solid transparent; /* Border awal transparan */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: #1f2933;
+}
+
+/* Styling border jika jawaban benar */
+.kuis-result-card.correct {
+  border-color: #22c55e; /* Border hijau */
+  box-shadow: 0 18px 44px rgba(34, 197, 94, 0.15); /* Bayangan hijau */
+}
+
+/* Styling border jika jawaban salah (jika ada) */
+.kuis-result-card.incorrect {
+  border-color: #ef4444; /* Border merah */
+  box-shadow: 0 18px 44px rgba(239, 68, 68, 0.15); /* Bayangan merah */
+}
+
+/* Judul dalam kartu (misal: Pertanyaan 1) */
+.kuis-result-card h2 {
+  margin-bottom: 12px;
+  font-size: 18px;
+  color: #1f2933;
+}
+
+/* Teks Pertanyaan (jika ada) */
+.kuis-result-question {
+  font-weight: 600; /* Sedikit tebal */
+  color: #2c3e50; /* Warna biru tua keabuan */
+  margin-bottom: 16px;
+}
+
+/* Kontainer untuk jawaban user dan jawaban benar */
+.kuis-result-answers p {
+  margin-bottom: 6px; /* Jarak antar baris jawaban */
+  color: #4a5568; /* Warna teks abu-abu */
+  line-height: 1.5; /* Jarak baris */
+}
+
+/* Hilangkan margin bawah pada paragraf jawaban terakhir */
+.kuis-result-answers p:last-child {
+  margin-bottom: 0;
+}
+
+/* Penekanan pada teks jawaban (opsional) */
+.kuis-result-answers span {
+  font-weight: 600; /* Sedikit tebal */
+  color: #111827; /* Warna teks lebih gelap */
+}
+
+/* Tombol Aksi di Bawah (Ulangi Kuis, Kembali) */
+.kuis-result-actions {
+  display: flex;
+  gap: 16px; /* Jarak antar tombol */
+  margin-top: 8px; /* Jarak dari daftar hasil */
+}
+
+.kuis-result-actions button {
+  padding: 12px 28px;
+  border-radius: 12px; /* Sudut membulat */
+  border: none;
+  font-weight: 600; /* Teks tebal */
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Styling tombol pertama (misal: Ulangi Kuis) */
+.kuis-result-actions button:first-child {
+  background: #4f46e5; /* Warna ungu primer */
+  color: #ffffff; /* Teks putih */
+  box-shadow: 0 15px 30px rgba(79, 70, 229, 0.2); /* Bayangan */
+}
+
+/* Styling tombol kedua (misal: Kembali ke Materi) */
+.kuis-result-actions button:last-child {
+  background: #e5e7ff; /* Warna ungu muda */
+  color: #312e81; /* Teks ungu tua */
+}
+
+/* Efek hover pada tombol */
+.kuis-result-actions button:hover {
+  transform: translateY(-2px); /* Sedikit naik saat dihover */
+}
+
+/* Penyesuaian Responsif */
+@media (max-width: 1024px) {
+  .kuis-result-content {
+    margin-left: 0; /* Hapus margin kiri jika sidebar disembunyikan */
+    padding: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Tumpuk tombol aksi di layar kecil */
+  .kuis-result-actions {
+    flex-direction: column;
+  }
+
+  /* Buat tombol jadi lebar penuh di layar kecil */
+  .kuis-result-actions button {
+    width: 100%;
+  }
+}

@@ -6,8 +6,9 @@ import '../styles/BenarSalah.css';
 import { Check, X } from 'lucide-react';
 import { benarSalahQuestions } from '../data/benarSalahQuestions';
 
+// Fungsi ini sekarang akan membandingkan boolean === boolean
 const statusFromAnswer = (question, answer) => {
-  if (answer === null) return 'unanswered';
+  if (answer === null || answer === undefined) return 'unanswered'; // Menangani null atau undefined
   return answer === question.isCorrect ? 'correct' : 'incorrect';
 };
 
@@ -23,16 +24,19 @@ const KuisBenarSalah = () => {
 
   const currentQuestion = benarSalahQuestions[currentQuestionIndex];
   
-  // 3. State untuk SEMUA jawaban (bukan cuma 1)
-  const [answers, setAnswers] = useState({}); // format: { 1: true, 2: false, ... }
+  const [answers, setAnswers] = useState({}); 
 
-  // Ambil jawaban untuk soal ini, 'null' jika belum dijawab
   const selectedAnswer = answers[currentQuestion?.id] ?? null;
+  
+  // ↓↓↓ PERUBAHAN UTAMA DI SINI ↓↓↓
+  // Ubah 'id' dari string ('true') menjadi boolean (true)
   const options = [
-    { id: 'true', text: 'Benar' },
-    { id: 'false', text: 'Salah' },
+    { id: true, text: 'Benar' },
+    { id: false, text: 'Salah' },
   ];
-  // Fungsi handle jawaban (tetap)
+  // ↑↑↑ SELESAI PERUBAHAN ↑↑↑
+
+  // Fungsi ini sekarang akan menerima dan menyimpan boolean (true/false)
   const handleAnswerChange = (optionId) => {
     setAnswers((prev) => ({
       ...prev,
@@ -40,32 +44,35 @@ const KuisBenarSalah = () => {
     }));
   };
 
-  // 3. Perbarui fungsi navigasi
+  // Perbaikan Logika:
+  // getNavClass sekarang MENGHITUNG status
   const getNavClass = (question) => {
     if (question.id === currentQuestion.id) return 'current';
-    return statusFromAnswer(question, answers[question.id]?? null);
+    
+    const answer = answers[question.id];
+    // Kirim jawaban dan pertanyaan ke statusFromAnswer
+    return statusFromAnswer(question, answer); 
   };
 
-  const getNavIcon = (question) => {
+  // getNavIcon sekarang MENERIMA status dari getNavClass
+  const getNavIcon = (question, status) => {
     if (question.id === currentQuestion.id) return null;
-    switch (question.status) {
+    switch (status) {
       case 'correct':
         return <Check size={18} className="icon-correct" />;
       case 'incorrect':
         return <X size={18} className="icon-incorrect" />;
-      default:
+      default: // 'unanswered'
         return <div className="icon-unanswered-circle"></div>;
     }
   };
 
-  // 4. Buat fungsi untuk tombol "Next"
   const handleNextClick = () => {
-    const nextQuestion = currentQuestionIndex + 2; // (index 0-based + 2 = nomor soal 1-based berikutnya)
+    const nextQuestion = currentQuestionIndex + 2; 
 
     if (nextQuestion <= totalQuestions) {
       navigate(`/Kuis/Tata-Kata/${nextQuestion}`);
     } else {
-      // Selesai! Kirim data ke Halaman Hasil
       navigate('/kuis/tata-kata/hasil', { 
         state: { 
           answers: answers,
@@ -89,8 +96,10 @@ const KuisBenarSalah = () => {
           <div className="kuis-options-list horizontal">
             {options.map((option) => (
               <label
-                key={option.id}
+                // Gunakan String(option.id) untuk key agar aman
+                key={String(option.id)} 
                 className={`kuis-option-label ${
+                  // Perbandingan ini (boolean === boolean) sekarang berfungsi
                   selectedAnswer === option.id ? 'selected' : ''
                 }`}
               >
@@ -114,18 +123,25 @@ const KuisBenarSalah = () => {
 
         <aside className="kuis-right-nav">
           <div className="kuis-nav-list">
-            {benarSalahQuestions.map((q) => (
-              <div
-                key={q.id}
-                className={`kuis-nav-item ${getNavClass(q)}`}
-                onClick={() => navigate(`/Kuis/Tata-Kata/${q.id}`)}
-              >
-                <span className="kuis-nav-icon-wrapper">
-                  {getNavIcon(q)}
-                </span>
-                {`Pertanyaan ${q.id}`}
-              </div>
-            ))}
+            {/* Perbaikan Logika Navigasi */}
+            {benarSalahQuestions.map((q) => {
+              // Hitung status satu kali
+              const navClass = getNavClass(q); 
+              return (
+                <div
+                  key={q.id}
+                  // Gunakan status yang dihitung
+                  className={`kuis-nav-item ${navClass}`} 
+                  onClick={() => navigate(`/Kuis/Tata-Kata/${q.id}`)}
+                >
+                  <span className="kuis-nav-icon-wrapper">
+                    {/* Kirim status yang dihitung ke getNavIcon */}
+                    {getNavIcon(q, navClass)} 
+                  </span>
+                  {`Pertanyaan ${q.id}`}
+                </div>
+              );
+            })}
           </div>
         </aside>
       </main>
