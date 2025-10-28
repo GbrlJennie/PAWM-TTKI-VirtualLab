@@ -1,19 +1,10 @@
 /* Tata letak Halaman Utama */
 .kuis-main-content {
   /* Mengikuti layout dari Home.css Anda */
-  width: 100%;
-  max-width: 2160px;
-  margin: 64px auto 40px;
-  margin-left: 160px;  /* Sesuaikan dengan lebar Sidebar Anda */
-  margin-top: 64px;   /* Sesuaikan dengan tinggi Header Anda */
-  padding: 32px 40px;
-  background-color: #ffffff; /* Latar belakang konten putih seperti desain */
-  min-height: calc(100vh - 160px); /* Isi sisa layar */
-  width: calc(100vw - 200px);
-  
-  /* Layout 2 kolom untuk kuis */
   display: flex;
   gap: 24px;
+  margin: auto;
+  background: #ffffff;
 }
 
 .kuis-content-left {
