@@ -25,19 +25,19 @@
 }
 
 .login-header {
-  max-width: 960px;
+  max-width: 840px;
   display: flex;
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 3rem;
   background: white;
   padding: 0.75rem 1.5rem;
-  border-radius: 36px;
+  border-radius: 28px;
 }
 
 .login-logo {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
 }
 
 .login-brand {
@@ -59,7 +59,7 @@
   border-radius: 20px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 520px;
+  max-width: 360px;
   position: relative;
 }
 
