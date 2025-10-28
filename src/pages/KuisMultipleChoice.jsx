@@ -126,7 +126,7 @@ const KuisMultipleChoice = () => {
                         <div className="icon-unanswered-circle" />
                       ))}
                   </span>
-                  {`Pertanyaan ${question.id}`}
+                  {`${question.id}`}
                 </div>
               );
             })}
