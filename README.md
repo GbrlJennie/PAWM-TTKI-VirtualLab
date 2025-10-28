@@ -4,7 +4,7 @@ Selamat datang di website Taba, sebuah media pembelajaran interaktif berbasis we
 
 Aplikasi ini sepenuhnya berjalan di sisi *browser* (*frontend*) dan memanfaatkan Supabase sebagai *Backend as a Service* (BaaS) untuk autentikasi pengguna dan penyimpanan data.
 
-**Tautan Live Demo:** [https://pawm-ttki-virtual-lab.vercel.app/](https://pawm-ttki-virtual-lab.vercel.app/) 
+**Tautan Web:** [https://pawm-ttki-virtual-lab.vercel.app/](https://pawm-ttki-virtual-lab.vercel.app/) 
 
 ---
 
